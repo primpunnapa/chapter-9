@@ -19,7 +19,7 @@ jobs:
     
     - name: Start services
       working-directory: ./example-4
-      run: docker-compose up -d --build
+      run: docker compose up -d --build
     
     - name: Wait for services
       run: sleep 30
@@ -39,4 +39,4 @@ jobs:
     - name: Cleanup
       if: always()
       working-directory: ./example-4
-      run: docker-compose down -v
+      run: docker compose down -v
