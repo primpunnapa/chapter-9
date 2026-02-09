@@ -21,16 +21,13 @@ jobs:
       working-directory: ./example-4
       run: docker compose up -d --build
     
-    - name: Wait for services
-      run: sleep 30
-    
     - name: Install dependencies
       working-directory: ./example-4
       run: npm ci
     
     - name: Install Playwright
       working-directory: ./example-4
-      run: npx playwright install
+      run: npx playwright install-deps
     
     - name: Run tests
       working-directory: ./example-4
