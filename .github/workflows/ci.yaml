@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push: 
+    branches:
+      - main
+  workflow_dispatch:
+  
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+    
+    - name: Start services
+      working-directory: ./example-4
+      run: docker-compose up -d --build
+    
+    - name: Wait for services
+      run: sleep 30
+    
+    - name: Install dependencies
+      working-directory: ./example-4
+      run: npm ci
+    
+    - name: Install Playwright
+      working-directory: ./example-4
+      run: npx playwright install --with-deps chromium
+    
+    - name: Run tests
+      working-directory: ./example-4
+      run: npm test
+    
+    - name: Cleanup
+      if: always()
+      working-directory: ./example-4
+      run: docker-compose down -v

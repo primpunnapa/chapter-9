@@ -10,3 +10,6 @@ old-example-2/
 example-1/coverage/
 example-2/coverage/
 example-4/playwright-report
+venv/
+__pycache__/
+*.pyc
